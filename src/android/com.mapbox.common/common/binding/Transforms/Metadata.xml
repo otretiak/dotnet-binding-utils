@@ -1,22 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-  <attr path="//field[@name='webSocket']" name="managedName">webSocket_</attr>
-  <!-- Remove problematic classes that cause binding issues -->
-  <!-- Fix IInitializer return type issues -->
-  <attr path="/api/package[@name='com.mapbox.common']/class[@name='BaseMapboxInitializer']/method[@name='create']" name="return">java.lang.Object</attr>
-  <attr path="/api/package[@name='com.mapbox.common']/class[@name='CoreInitializer']/method[@name='create']" name="return">java.lang.Object</attr>
-  <attr path="/api/package[@name='com.mapbox.common']/class[@name='MapboxSDKCommonInitializerImpl']/method[@name='create']" name="return">java.lang.Object</attr>
+  <remove-node path="/api/package[@name='com.mapbox.common.location']/class[@name='GoogleDeviceLocationProviderKt']/method[@name='getGooglePlayServicesHelper' and count(parameter)=0]" />
+  <!-- Remove the problematic GooglePlayServicesHelper completely -->
+  <remove-node path="//package[@name='com.mapbox.common.location']/interface[@name='GooglePlayServicesHelper']" />
+  <remove-node path="//package[@name='com.mapbox.common.location']/class[contains(@name, 'GooglePlayServicesHelper')]" />
+  
+  <!-- For ResponseReadStream - ensure interface compliance -->
+  <attr path="//class[@name='ResponseReadStream']" name="extends">Java.Lang.Object</attr>
+  <add-node path="//class[@name='ResponseReadStream']/implements">
+    <implements name="com.mapbox.common.IReadStream" />
+  </add-node>
 
-  <!-- Remove problematic ResponseReadStream implementation -->
-  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='ResponseReadStream']/method[@name='readBytes']" />
-  
-  <!-- Remove GooglePlayServicesHelper references entirely -->
-  <remove-node path="/api/package[@name='com.mapbox.common.location']/class[@name='GoogleDeviceLocationProviderKt']/method[contains(@name, 'GooglePlayServicesHelper')]" />
-  
-  <!-- Alternative: Remove entire problematic classes -->
-  <!-- Uncomment these if the above doesn't work -->
-  <!--
-  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='ResponseReadStream']" />
-  <remove-node path="/api/package[@name='com.mapbox.common.location']/class[@name='GoogleDeviceLocationProviderKt']" />
-  -->
+  <!-- Force correct return types for all Initializer implementations -->
+  <attr path="//class[contains(@name, 'Initializer')]/method[@name='create']" name="managedReturn">Java.Lang.Object</attr>
 </metadata>
