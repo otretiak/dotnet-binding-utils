@@ -1,23 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-  <!-- <remove-node path="/api/package[@name='com.mapbox.common.location']/class[@name='GoogleDeviceLocationProviderKt']/method[@name='getGooglePlayServicesHelper' and count(parameter)=0]" /> -->
-  <!-- Remove the problematic GooglePlayServicesHelper completely -->
-  <!-- <remove-node path="//package[@name='com.mapbox.common.location']/interface[@name='GooglePlayServicesHelper']" /> -->
-  <!-- <remove-node path="//package[@name='com.mapbox.common.location']/class[contains(@name, 'GooglePlayServicesHelper')]" /> -->
-  
-  <!-- For ResponseReadStream - ensure interface compliance -->
-  <!-- <attr path="//class[@name='ResponseReadStream']" name="extends">Java.Lang.Object</attr>
-  <add-node path="//class[@name='ResponseReadStream']/implements">
-    <implements name="com.mapbox.common.IReadStream" />
-  </add-node> -->
-
-  <!-- Force correct return types for all Initializer implementations -->
-  <!-- <attr path="//class[contains(@name, 'Initializer')]/method[@name='create']" name="managedReturn">Java.Lang.Object</attr>-->
-  
-    <!-- Remove GooglePlayServicesHelper references -->
   <remove-node path="//class[@name='GoogleDeviceLocationProviderKt']" />
-  
-  <!-- Fix return types -->
-  <attr path="//class[contains(@name, 'Initializer')]/method[@name='create']" 
-        name="managedReturn">Java.Lang.Object</attr> 
+  <attr path="//class[contains(@name, 'Initializer')]/method[@name='create']" name="managedReturn">Java.Lang.Object</attr>
+  <add-node path="//class[@name='ResponseReadStream']">
+    <method abstract="false" name="readBytes" return="byte[]" visibility="public" />
+  </add-node>
 </metadata>
