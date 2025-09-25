@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
   <attr path="//field[@name='webSocket']" name="managedName">webSocket_</attr>
-  <remove-node path="/api/package[@name='com.mapbox.common.location']/class[@name='GoogleDeviceLocationProviderKt']/method[@name='getGooglePlayServicesHelper' and count(parameter)=0]" />
+  <!-- Remove problematic classes that cause binding issues -->
+  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='BaseMapboxInitializer']" />
+  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='CoreInitializer']" />
+  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='MapboxSDKCommonInitializerImpl']" />
+  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='ResponseReadStream']" />
+  
+  <!-- Remove GooglePlayServicesHelper references -->
+  <remove-node path="/api/package[@name='com.mapbox.common.location']/class[@name='GoogleDeviceLocationProviderKt']" />
 </metadata>
