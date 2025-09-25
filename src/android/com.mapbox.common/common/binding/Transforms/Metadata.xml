@@ -2,11 +2,21 @@
 <metadata>
   <attr path="//field[@name='webSocket']" name="managedName">webSocket_</attr>
   <!-- Remove problematic classes that cause binding issues -->
-  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='BaseMapboxInitializer']" />
-  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='CoreInitializer']" />
-  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='MapboxSDKCommonInitializerImpl']" />
-  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='ResponseReadStream']" />
+  <!-- Fix IInitializer return type issues -->
+  <attr path="/api/package[@name='com.mapbox.common']/class[@name='BaseMapboxInitializer']/method[@name='create']" name="return">java.lang.Object</attr>
+  <attr path="/api/package[@name='com.mapbox.common']/class[@name='CoreInitializer']/method[@name='create']" name="return">java.lang.Object</attr>
+  <attr path="/api/package[@name='com.mapbox.common']/class[@name='MapboxSDKCommonInitializerImpl']/method[@name='create']" name="return">java.lang.Object</attr>
+
+  <!-- Remove problematic ResponseReadStream implementation -->
+  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='ResponseReadStream']/method[@name='readBytes']" />
   
-  <!-- Remove GooglePlayServicesHelper references -->
+  <!-- Remove GooglePlayServicesHelper references entirely -->
+  <remove-node path="/api/package[@name='com.mapbox.common.location']/class[@name='GoogleDeviceLocationProviderKt']/method[contains(@name, 'GooglePlayServicesHelper')]" />
+  
+  <!-- Alternative: Remove entire problematic classes -->
+  <!-- Uncomment these if the above doesn't work -->
+  <!--
+  <remove-node path="/api/package[@name='com.mapbox.common']/class[@name='ResponseReadStream']" />
   <remove-node path="/api/package[@name='com.mapbox.common.location']/class[@name='GoogleDeviceLocationProviderKt']" />
+  -->
 </metadata>
