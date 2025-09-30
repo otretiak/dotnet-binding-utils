@@ -2,23 +2,24 @@ namespace Com.Mapbox.Common
 {
     partial class ResponseReadStream
     {
-        public byte[] ReadBytes()
+        public long ReadBytes()
         {
-            try
-            {
-                var count = this.InvokeReadBytes();
-                if (this.GetBytes != null)
-                    return this.GetBytes();
+            return 0;
+            // try
+            // {
+            //     var count = this.InvokeReadBytes();
+            //     if (this.GetBytes != null)
+            //         return this.GetBytes();
 
-                if (this.ToByteArray != null)
-                    return this.ToByteArray();
+            //     if (this.ToByteArray != null)
+            //         return this.ToByteArray();
 
-                return new byte[0];
-            }
-            catch
-            {
-                return new byte[0];
-            }
+            //     return new byte[0];
+            // }
+            // catch
+            // {
+            //     return new byte[0];
+            // }
         }
     }
 }
