@@ -9,8 +9,8 @@
   <remove-node path="//*[@extends='com.mapbox.common.location.IGooglePlayServicesHelper']" />
 
   <!-- Fix readBytes - DO NOT ADD IT, just map the existing one -->
-  <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="visibility">public</attr>
-  <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="managedName">ReadBytes</attr>
+  <!-- <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="visibility">public</attr> -->
+  <!-- <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="managedName">ReadBytes</attr> -->
 
   <!-- Fix Initializer return types -->
   <attr path="//class[contains(@name, 'Initializer')]/method[@name='create']" name="managedReturn">Java.Lang.Object</attr>
