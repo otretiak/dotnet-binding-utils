@@ -5,7 +5,7 @@ namespace Com.Mapbox.Common
 {
     public partial class ResponseReadStream
     {
-        byte[] Com.Mapbox.Common.IReadStream.ReadBytes()
+        byte[] global::Com.Mapbox.Common.IReadStream.ReadBytes()
         {
             return InvokeReadBytes();
         }
