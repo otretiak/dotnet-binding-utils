@@ -1,14 +1,24 @@
-// using System;
-// using Android.Runtime;
+namespace Com.Mapbox.Common
+{
+    partial class ResponseReadStream
+    {
+        byte[] global::Com.Mapbox.Common.IReadStream.ReadBytes()
+        {
+            try
+            {
+                var count = this.InvokeReadBytes();
+                if (this.GetBytes != null)
+                    return this.GetBytes();
 
-// namespace Com.Mapbox.Common
-// {
-//     public partial class ResponseReadStream
-//     {
-//         // This bridges the gap between the generated InvokeReadBytes and the interface
-//         byte[] Com.Mapbox.Common.IReadStream.ReadBytes()
-//         {
-//             return InvokeReadBytes();
-//         }
-//     }
-// }
+                if (this.ToByteArray != null)
+                    return this.ToByteArray();
+
+                return new byte[0];
+            }
+            catch
+            {
+                return new byte[0];
+            }
+        }
+    }
+}
