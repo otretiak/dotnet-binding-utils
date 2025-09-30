@@ -2,7 +2,7 @@ namespace Com.Mapbox.Common
 {
     partial class ResponseReadStream
     {
-        byte[] global::Com.Mapbox.Common.IReadStream.ReadBytes()
+        byte[] ReadBytes()
         {
             try
             {

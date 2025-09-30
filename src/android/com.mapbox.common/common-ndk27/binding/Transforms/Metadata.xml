@@ -15,7 +15,7 @@
   <attr path="//class[contains(@name, 'Initializer')]/method[@name='create']" name="managedReturn">Java.Lang.Object</attr>
 
     <!-- Ensure ResponseReadStream implements IReadStream -->
-  <attr path="//class[@name='ResponseReadStream']" name="extends">Java.Lang.Object</attr>
+  <!-- <attr path="//class[@name='ResponseReadStream']" name="extends">Java.Lang.Object</attr>
   <add-node path="//class[@name='ResponseReadStream']/implements">
     <implements name="com.mapbox.common.IReadStream" />
   </add-node>
@@ -24,4 +24,5 @@
   <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="managedName">ReadBytes</attr>
   <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="visibility">public</attr>
   <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="final">false</attr>
+  < -->
 </metadata>
