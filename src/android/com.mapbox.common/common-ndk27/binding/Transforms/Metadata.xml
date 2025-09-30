@@ -44,4 +44,12 @@
   <remove-node path="//*[@return='com.mapbox.common.location.IGooglePlayServicesHelper']" />
   <remove-node path="//*[@type='com.mapbox.common.location.IGooglePlayServicesHelper']" />
   <remove-node path="//*[@extends='com.mapbox.common.location.IGooglePlayServicesHelper']" />
+
+
+  <!-- Add these to your existing Metadata.xml -->
+<remove-node path="//class[@name='GoogleDeviceLocationProviderKt']" />
+<attr path="//class[contains(@name, 'Initializer')]/method[@name='create']" name="managedReturn">Java.Lang.Object</attr>
+<add-node path="//class[@name='ResponseReadStream']">
+<method abstract="false" name="readBytes" return="byte[]" visibility="public" />
+</add-node>
 </metadata>
