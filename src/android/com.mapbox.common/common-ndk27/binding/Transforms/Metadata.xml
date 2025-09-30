@@ -1,47 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
- <remove-node path="//class[@name='GoogleDeviceLocationProviderKt']" />
+  <!-- Remove GoogleDeviceLocationProviderKt -->
+  <remove-node path="//class[@name='GoogleDeviceLocationProviderKt']" />
   
-  <!-- Option B: If you want to keep the class but remove problematic members -->
-  <!-- 
-  <remove-node path="//class[@name='GoogleDeviceLocationProviderKt']/method[contains(@return, 'GooglePlayServicesHelper')]" />
-  <remove-node path="//class[@name='GoogleDeviceLocationProviderKt']/method[contains(parameter/@type, 'com.mapbox.common.location.GooglePlayServicesHelper')]" />
-  <attr path="//class[@name='GoogleDeviceLocationProviderKt']" name="obfuscated">false</attr>
-  -->
-
-  <!-- Fix 2: ResponseReadStream missing ReadBytes method -->
-  <!-- First check if IReadStream interface exists and requires ReadBytes -->
-  <add-node path="//class[@name='ResponseReadStream']">
-    <method 
-      abstract="false" 
-      deprecated="not deprecated" 
-      final="false" 
-      name="readBytes" 
-      native="false" 
-      return="byte[]" 
-      static="false" 
-      synchronized="false" 
-      visibility="public">
-    </method>
-  </add-node>
-
-  <!-- Alternative: If ReadBytes exists but with wrong signature -->
-  <!-- <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="return">byte[]</attr> -->
-
-  <!-- Fix 3: IInitializer.Create return type issues -->
-  <!-- Force all Initializer classes to return Java.Lang.Object from Create method -->
-  <attr path="//class[@name='CoreInitializer']/method[@name='create' and count(parameter)=1 and parameter[1][@type='android.content.Context']]" name="managedReturn">Java.Lang.Object</attr>
-  
-  <attr path="//class[@name='BaseMapboxInitializer']/method[@name='create' and count(parameter)=1 and parameter[1][@type='android.content.Context']]" name="managedReturn">Java.Lang.Object</attr>
-  
-  <attr path="//class[@name='MapboxSDKCommonInitializerImpl']/method[@name='create' and count(parameter)=1 and parameter[1][@type='android.content.Context']]" name="managedReturn">Java.Lang.Object</attr>
-
-  <!-- Generic fix for any other Initializer classes -->
-  <attr path="//class[contains(@name, 'Initializer') and @extends='java.lang.Object']/method[@name='create' and count(parameter)=1]" name="managedReturn">Java.Lang.Object</attr>
-
-  <!-- Additional safety transformations for NDK27 -->
-  <!-- Remove any references to missing types -->
+  <!-- Remove GooglePlayServicesHelper references -->
   <remove-node path="//*[@return='com.mapbox.common.location.IGooglePlayServicesHelper']" />
   <remove-node path="//*[@type='com.mapbox.common.location.IGooglePlayServicesHelper']" />
   <remove-node path="//*[@extends='com.mapbox.common.location.IGooglePlayServicesHelper']" />
+
+  <!-- Fix readBytes - DO NOT ADD IT, just map the existing one -->
+  <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="managedName">ReadBytes</attr>
+
+  <!-- Fix Initializer return types -->
+  <attr path="//class[contains(@name, 'Initializer')]/method[@name='create']" name="managedReturn">Java.Lang.Object</attr>
 </metadata>
