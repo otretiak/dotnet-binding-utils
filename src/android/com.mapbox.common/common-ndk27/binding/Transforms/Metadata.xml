@@ -26,4 +26,5 @@
   <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="visibility">public</attr>
   <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="final">false</attr> -->
 
+<remove-node path="//class[@name='ResponseReadStream']/implements[@name='com.mapbox.common.ReadStream']" />
 </metadata>
