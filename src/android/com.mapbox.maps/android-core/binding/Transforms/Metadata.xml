@@ -3,4 +3,6 @@
 	<attr
 		path="/api/package[@name='com.mapbox.maps']/class[@name='ViewAnnotationPositionDescriptor']"
 		name="visibility">public</attr>
+
+  <attr path="//class[@name='MapboxMapsInitializerImpl']/method[@name='create' and count(parameter)=1 and parameter[1][@type='android.content.Context']]" name="managedReturn">Java.Lang.Object</attr>		
 </metadata>
