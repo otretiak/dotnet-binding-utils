@@ -22,6 +22,12 @@
   <attr path="//class[@name='CompassSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
   <attr path="//class[@name='CompassSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
   
+  <attr path="//class[@name='GesturesSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="//class[@name='GesturesSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  
+  <attr path="//class[@name='ScaleBarSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="//class[@name='ScaleBarSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  
   <!-- Remove abstract methods that aren't implemented -->
   <remove-node path="//class[@name='TypedFeaturesetDescriptor']/method[@name='getFeaturesetFeature']" />
   <remove-node path="//class[@name='TypedFeaturesetDescriptor']/method[@name='getFeatureState']" />
