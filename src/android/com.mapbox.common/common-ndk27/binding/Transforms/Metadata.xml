@@ -7,24 +7,7 @@
   <remove-node path="//*[@return='com.mapbox.common.location.IGooglePlayServicesHelper']" />
   <remove-node path="//*[@type='com.mapbox.common.location.IGooglePlayServicesHelper']" />
   <remove-node path="//*[@extends='com.mapbox.common.location.IGooglePlayServicesHelper']" />
-
-  <!-- Fix readBytes - DO NOT ADD IT, just map the existing one -->
-  <!-- <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="visibility">public</attr> -->
-  <!-- <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="managedName">ReadBytes</attr> -->
-
   <!-- Fix Initializer return types -->
   <attr path="//class[contains(@name, 'Initializer')]/method[@name='create']" name="managedReturn">Java.Lang.Object</attr>
-
-    <!-- Ensure ResponseReadStream implements IReadStream -->
-  <!-- <attr path="//class[@name='ResponseReadStream']" name="extends">Java.Lang.Object</attr>
-  <add-node path="//class[@name='ResponseReadStream']/implements">
-    <implements name="com.mapbox.common.IReadStream" />
-  </add-node> -->
-  
-  <!-- Map readBytes to ReadBytes -->
-  <!-- <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="managedName">ReadBytes</attr>
-  <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="visibility">public</attr>
-  <attr path="//class[@name='ResponseReadStream']/method[@name='readBytes']" name="final">false</attr> -->
-
-<remove-node path="//class[@name='ResponseReadStream']/implements[@name='com.mapbox.common.ReadStream']" />
+  <remove-node path="//class[@name='ResponseReadStream']/implements[@name='com.mapbox.common.ReadStream']" />
 </metadata>
