@@ -58,16 +58,4 @@
   <remove-node path="//*[@return='com.mapbox.common.location.IGooglePlayServicesHelper']" />
   <remove-node path="//*[@type='com.mapbox.common.location.IGooglePlayServicesHelper']" />
   <remove-node path="//*[@extends='com.mapbox.common.location.IGooglePlayServicesHelper']" />
-
-    <!-- Fix IParcelableCreator return types -->
-  <attr path="//class[@name='AttributionSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
-  <attr path="//class[@name='AttributionSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
-  
-  <attr path="//class[@name='ImageHolder.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
-  <attr path="//class[@name='ImageHolder.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
-  
-  <!-- Fix abstract method issues - make classes abstract -->
-  <attr path="//class[@name='StandardPoi']" name="abstract">true</attr>
-  <attr path="//class[@name='StandardPlaceLabels']" name="abstract">true</attr>
-  <attr path="//class[@name='StandardBuildings']" name="abstract">true</attr>
 </metadata>
