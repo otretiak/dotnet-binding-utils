@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <!-- Fix IInitializer.Create return type -->
+  <attr path="//class[@name='MapboxMapsInitializerImpl']/method[@name='create']" name="managedReturn">Java.Lang.Object</attr>
+  
+  <!-- Catch any other Initializer classes -->
+  <attr path="//class[contains(@name, 'Initializer')]/method[@name='create']" name="managedReturn">Java.Lang.Object</attr>
+</metadata>
