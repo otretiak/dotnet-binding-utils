@@ -19,6 +19,10 @@
     <AndroidUseIntermediateDesignerFile>false</AndroidUseIntermediateDesignerFile>
     <AssemblyName>@(Model.Artifact.Nuget.PackageId)</AssemblyName>
     <RootNamespace>@(Model.Artifact.Nuget.PackageId)</RootNamespace>
+  @if (Model.Artifact.Nuget.PackageId.Contains("Ndk27") || Model.Artifact.Nuget.ArtifactId.Contains("ndk27") || Model.Artifact.Nuget.ArtifactId.Contains("NDK27")) {
+    @:<!-- Fix for NDK27 stamp file conflicts -->
+  @:<BaseIntermediateOutputPath>obj/ndk27/@(Model.Artifact.Nuget.ArtifactId)/</BaseIntermediateOutputPath>
+  }
   </PropertyGroup>
   <ItemGroup>
     <_TargetFrameworkNugetBuildFolders Include="build\net8.0-android34.0" />
