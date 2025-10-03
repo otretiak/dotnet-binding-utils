@@ -18,6 +18,10 @@
     <IsBindingProject>true</IsBindingProject>
     <AssemblyName>@(Model.Artifact.Nuget.PackageId)</AssemblyName>
     <RootNamespace>@(Model.Artifact.Nuget.PackageId)</RootNamespace>
+  @if (Model.Artifact.Nuget.PackageId.Contains("Ndk27") || Model.Artifact.Nuget.ArtifactId.Contains("ndk27")) {
+    @:<!-- Fix for NDK27 stamp file conflicts -->
+    @:<BaseIntermediateOutputPath>obj/ndk27/@(Model.Artifact.Nuget.ArtifactId)/</BaseIntermediateOutputPath>
+  }
   </PropertyGroup>
   <ItemGroup Condition=" '$(OS)' == 'Unix' or '10' == '10' ">
     <_TargetFrameworkNugetBuildFolders Include="build\MonoAndroid12.0" />
