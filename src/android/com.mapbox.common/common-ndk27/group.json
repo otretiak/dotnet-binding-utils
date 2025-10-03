@@ -1,0 +1,7 @@
+{
+  "groupId": "com.mapbox.common",
+  "artifactId": "common-ndk27",
+  "version": "24.8.0",
+  "nugetId": "Com.Mapbox.Common.CommonNdk27",
+  "nugetVersion": "24.8.0-ndk27"
+}
