@@ -1,0 +1,7 @@
+{
+  "packageId": "Com.Mapbox.Extension.MapsLocalization",
+  "name": "maps-localization",
+  "dependencyOnly": true,
+  "dotnet8": true,
+  "versionMappings": []
+}
