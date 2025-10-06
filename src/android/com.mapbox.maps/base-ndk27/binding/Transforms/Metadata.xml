@@ -1,35 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-  <!-- Fix ALL Creator classes -->
-  <attr path="//class[@name='ImageHolder.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
-  <attr path="//class[@name='ImageHolder.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
-  
-  <attr path="//class[@name='LocationPuck2D.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
-  <attr path="//class[@name='LocationPuck2D.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
-  
-  <attr path="//class[@name='LocationPuck3D.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
-  <attr path="//class[@name='LocationPuck3D.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
-
-  <attr path="//class[@name='LogoSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
-  <attr path="//class[@name='LogoSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
-  
-  <attr path="//class[@name='LocationComponentSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
-  <attr path="//class[@name='LocationComponentSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
-  
-  <attr path="//class[@name='AttributionSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
-  <attr path="//class[@name='AttributionSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
-  
-  <attr path="//class[@name='CompassSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
-  <attr path="//class[@name='CompassSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
-  
-  <attr path="//class[@name='GesturesSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
-  <attr path="//class[@name='GesturesSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
-  
-  <attr path="//class[@name='ScaleBarSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
-  <attr path="//class[@name='ScaleBarSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
-  
-  <!-- Remove abstract methods that aren't implemented -->
-  <remove-node path="//class[@name='TypedFeaturesetDescriptor']/method[@name='getFeaturesetFeature']" />
-  <remove-node path="//class[@name='TypedFeaturesetDescriptor']/method[@name='getFeatureState']" />
-
+  <remove-node path="/api/package[@name='com.mapbox.maps.extension.style']/interface[@name='StyleInterface']/implements[@name='com.mapbox.maps.StyleManagerInterface']" />
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardBuildings']/method[@name='getFeatureState' and count(parameter)=1 and parameter[1][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeatureState_</attr>
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardBuildings']/method[@name='getFeaturesetFeature' and count(parameter)=3 and parameter[1][@type='com.mapbox.geojson.Feature'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeaturesetFeature_</attr>
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardPoi']/method[@name='getFeatureState' and count(parameter)=1 and parameter[1][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeatureState_</attr>
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardPoi']/method[@name='getFeaturesetFeature' and count(parameter)=3 and parameter[1][@type='com.mapbox.geojson.Feature'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeaturesetFeature_</attr>
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardPlaceLabels']/method[@name='getFeatureState' and count(parameter)=1 and parameter[1][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeatureState_</attr>
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardPlaceLabels']/method[@name='getFeaturesetFeature' and count(parameter)=3 and parameter[1][@type='com.mapbox.geojson.Feature'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeaturesetFeature_</attr>
 </metadata>
