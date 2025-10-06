@@ -3,7 +3,9 @@ rm -rf ./src/libs/BindingHost/*.props
 rm -rf ./src/libs/BindingHost/bin
 rm -rf ./src/libs/BindingHost/obj
 rm -rf ./src/android/**/obj
-rm -rf ./src/android/**/bin
+rm -rf ./src/android/**/bint
+rm -rf tools
+rm -rf .cake
 # dotnet nuget locals -c all
 dotnet tool restore
 dotnet clean ./src/libs/BindingHost/BindingHost.csproj
