@@ -147,6 +147,24 @@ jobs:
         distribution: 'microsoft'
         java-version: '17'
 
+    # ADD THIS STEP - Clean all build artifacts before building
+    - name: Clean build artifacts
+      run: |
+        echo "Cleaning all bin and obj directories..."
+        find . -type d -name 'bin' -exec rm -rf {} + 2>/dev/null || true
+        find . -type d -name 'obj' -exec rm -rf {} + 2>/dev/null || true
+        echo "Clean completed"
+      shell: bash
+
+    # ADD THIS STEP - Clean Gradle cache if it's a Mapbox build
+    - name: Clean Gradle cache
+      if: contains(${{ inputs.LIB_ARTIFACT }}, 'com.mapbox')
+      run: |
+        echo "Cleaning Gradle cache..."
+        rm -rf ~/.gradle/caches
+        echo "Gradle cache cleaned"
+      shell: bash
+        
     - name: Build
       run: |
         echo "PWD: $PWD"
