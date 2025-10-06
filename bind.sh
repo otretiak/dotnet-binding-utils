@@ -3,7 +3,7 @@ rm -rf ./src/libs/BindingHost/*.props
 rm -rf ./src/libs/BindingHost/bin
 rm -rf ./src/libs/BindingHost/obj
 rm -rf ./src/android/**/obj
-rm -rf ./src/android/**/bint
+rm -rf ./src/android/**/bin
 rm -rf tools
 rm -rf .cake
 # dotnet nuget locals -c all
