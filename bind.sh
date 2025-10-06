@@ -10,6 +10,10 @@ rm -rf .cake
 dotnet tool restore
 dotnet clean ./src/libs/BindingHost/BindingHost.csproj
 
+echo "Cleaning previous build artifacts..."
+find ./src/android -type d -name 'bin' -exec rm -rf {} + 2>/dev/null || true
+find ./src/android -type d -name 'obj' -exec rm -rf {} + 2>/dev/null || true
+
 dotnet cake "$@"
 
 # Install Android workload

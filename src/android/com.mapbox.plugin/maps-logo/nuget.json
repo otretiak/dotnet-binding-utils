@@ -1,6 +1,6 @@
 {
   "packageId": "Com.Mapbox.Plugin.MapsLogo",
-  "name": "maps-logo",
+  "name": "maps-logo-ndk27",
   "dependencyOnly": true,
   "dotnet8": true,
   "versionMappings": []

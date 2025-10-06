@@ -6,6 +6,11 @@
     <RunWorkingDirectory>$(MSBuildProjectDirectory)</RunWorkingDirectory>
     <IsPackable>false</IsPackable>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AndroidUseIntermediateDesignerFile>false</AndroidUseIntermediateDesignerFile>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
+      <AndroidAapt2CompileExtraArgs>--warn-manifest-validation</AndroidAapt2CompileExtraArgs>
   </PropertyGroup>
   <PropertyGroup>
     <AndroidTargetSdkVersion>34</AndroidTargetSdkVersion>
