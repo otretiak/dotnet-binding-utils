@@ -16,23 +16,23 @@ on:
         required: true
         type: choice
         options:    
-        - com.mapbox.common:common-ndk27:24.8.0
-        - com.mapbox.maps:android-core-ndk27:11.8.0
-        - com.mapbox.maps:base-ndk27:11.8.0
-        - com.mapbox.module:maps-telemetry-ndk27:11.8.0
-        - com.mapbox.extension:maps-style-ndk27:11.8.0
-        - com.mapbox.extension:maps-localization-ndk27:11.8.0
-        - com.mapbox.plugin:maps-animation-ndk27:11.8.0
-        - com.mapbox.plugin:maps-attribution-ndk27:11.8.0
-        - com.mapbox.plugin:maps-compass-ndk27:11.8.0
-        - com.mapbox.plugin:maps-gestures-ndk27:11.8.0
-        - com.mapbox.plugin:maps-lifecycle-ndk27:11.8.0
-        - com.mapbox.plugin:maps-locationcomponent-ndk27:11.8.0
-        - com.mapbox.plugin:maps-logo-ndk27:11.8.0
-        - com.mapbox.plugin:maps-overlay-ndk27:11.8.0
-        - com.mapbox.plugin:maps-scalebar-ndk27:11.8.0
-        - com.mapbox.plugin:maps-viewport-ndk27:11.8.0
-        - com.mapbox.plugin:maps-annotation-ndk27:11.8.0
+        - com.mapbox.common:common:24.8.0
+        - com.mapbox.maps:android-core:11.8.0
+        - com.mapbox.maps:base:11.8.0
+        - com.mapbox.module:maps-telemetry:11.8.0
+        - com.mapbox.extension:maps-style:11.8.0
+        - com.mapbox.extension:maps-localization:11.8.0
+        - com.mapbox.plugin:maps-animation:11.8.0
+        - com.mapbox.plugin:maps-attribution:11.8.0
+        - com.mapbox.plugin:maps-compass:11.8.0
+        - com.mapbox.plugin:maps-gestures:11.8.0
+        - com.mapbox.plugin:maps-lifecycle:11.8.0
+        - com.mapbox.plugin:maps-locationcomponent:11.8.0
+        - com.mapbox.plugin:maps-logo:11.8.0
+        - com.mapbox.plugin:maps-overlay:11.8.0
+        - com.mapbox.plugin:maps-scalebar:11.8.0
+        - com.mapbox.plugin:maps-viewport:11.8.0
+        - com.mapbox.plugin:maps-annotation:11.8.0
         - com.mapbox.maps:android-ndk27:11.8.0
         # - org.jetbrains.kotlinx:kotlinx-datetime:0.6.1
         # - androidx.media3:media3-datasource:1.4.0
