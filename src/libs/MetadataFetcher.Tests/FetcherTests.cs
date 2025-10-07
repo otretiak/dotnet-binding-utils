@@ -33,7 +33,7 @@ public class FetcherTests
     [InlineData("Xamarin.AndroidX.Room.Common", "androidx.room", "room-common")]
     [InlineData("Xamarin.AndroidX.Room.Runtime", "androidx.room", "room-runtime")]
     [InlineData("Xamarin.AndroidX.Room.Room.Ktx", "androidx.room", "room-ktx")]
-    [InlineData("Com.Mapbox.Maps.Android", "com.mapbox.maps", "android-ndk27")]
+    [InlineData("Com.Mapbox.Maps.Android", "com.mapbox.maps", "android")]
     [InlineData("Dev.Romainguy.KotlinMath", "dev.romainguy", "kotlin-math")]
     [InlineData("Xamarin.KotlinX.Coroutines.Jdk8", "org.jetbrains.kotlinx", "kotlinx-coroutines-jdk8")]
     [InlineData("Xamarin.AndroidX.ProfileInstaller.ProfileInstaller", "androidx.profileinstaller", "profileinstaller")]

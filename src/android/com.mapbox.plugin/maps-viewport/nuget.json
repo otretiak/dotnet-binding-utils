@@ -1,6 +1,6 @@
 {
   "packageId": "Com.Mapbox.Plugin.MapsViewport",
-  "name": "maps-viewport-ndk27",
+  "name": "maps-viewport",
   "dependencyOnly": true,
   "dotnet8": true,
   "versionMappings": []
