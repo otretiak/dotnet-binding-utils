@@ -1,6 +1,6 @@
 {
   "packageId": "Com.Mapbox.Extension.MapsLocalization",
-  "name": "maps-localization-ndk27",
+  "name": "maps-localization",
   "dependencyOnly": true,
   "dotnet8": true,
   "versionMappings": []
