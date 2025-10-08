@@ -16,9 +16,9 @@ on:
         required: true
         type: choice
         options:    
-        - com.mapbox.common:common:24.8.0
+        - com.mapbox.common:common-ndk27:24.8.0
         - com.mapbox.maps:android-core-ndk27:11.8.0
-        - com.mapbox.maps:base:11.8.0
+        - com.mapbox.maps:base-ndk27:11.8.0
         - com.mapbox.module:maps-telemetry-ndk27:11.8.0
         - com.mapbox.extension:maps-style-ndk27:11.8.0
         - com.mapbox.extension:maps-localization-ndk27:11.8.0
