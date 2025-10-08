@@ -222,5 +222,35 @@
       <Link>Transforms/Metadata.common.xml</Link>
     </TransformFile>
   </ItemGroup>
+
+  @{
+    WriteLiteral(@"
+<!-- Strip any .stamp files so AAPT2 never sees them -->
+<Target Name=""StripStampFromAapt2Inputs""
+        AfterTargets=""_CollectLibraryResourceDirectories;_CalculateResourceFileName""
+        BeforeTargets=""_FixupCustomViewsForAapt2;_CompileResources"">
+
+  <ItemGroup>
+    <!-- Defensive: clean all common resource item sets -->
+    <_CompileResourcesInputs Remove=""@@(_CompileResourcesInputs)""
+                             Condition="" '%(_CompileResourcesInputs.Extension)' == '.stamp' "" />
+
+    <_LibraryResourceFiles   Remove=""@@(_LibraryResourceFiles)""
+                             Condition="" '%(_LibraryResourceFiles.Extension)' == '.stamp' "" />
+
+    <_CompileResourcesInputs Remove=""@@(_CompileResourcesInputs)""
+                             Condition="" '%(_CompileResourcesInputs.Filename)' == 'compiled' 
+                                 and '%(_CompileResourcesInputs.Extension)' == '.stamp' "" />
+
+    <AndroidResource          Remove=""@@(AndroidResource)""
+                              Condition="" '%(AndroidResource.Extension)' == '.stamp' "" />
+  </ItemGroup>
+
+  <Message Importance=""High"" Text=""StripStampFromAapt2Inputs: cleaned *.stamp from AAPT2 inputs."" />
+</Target>
+");
+  }
+
+
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 </Project>

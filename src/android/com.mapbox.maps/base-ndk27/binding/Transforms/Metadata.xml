@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <!-- Fix ALL Creator classes -->
+  <attr path="//class[@name='ImageHolder.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="//class[@name='ImageHolder.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  
+  <attr path="//class[@name='LocationPuck2D.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="//class[@name='LocationPuck2D.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  
+  <attr path="//class[@name='LocationPuck3D.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="//class[@name='LocationPuck3D.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+
+  <attr path="//class[@name='LogoSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="//class[@name='LogoSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  
+  <attr path="//class[@name='LocationComponentSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="//class[@name='LocationComponentSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  
+  <attr path="//class[@name='AttributionSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="//class[@name='AttributionSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  
+  <attr path="//class[@name='CompassSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="//class[@name='CompassSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  
+  <attr path="//class[@name='GesturesSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="//class[@name='GesturesSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  
+  <attr path="//class[@name='ScaleBarSettings.Creator']/method[@name='createFromParcel']" name="managedReturn">Java.Lang.Object</attr>
+  <attr path="//class[@name='ScaleBarSettings.Creator']/method[@name='newArray']" name="managedReturn">Java.Lang.Object[]</attr>
+  
+  <!-- Remove abstract methods that aren't implemented -->
+  <remove-node path="//class[@name='TypedFeaturesetDescriptor']/method[@name='getFeaturesetFeature']" />
+  <remove-node path="//class[@name='TypedFeaturesetDescriptor']/method[@name='getFeatureState']" />
+
+</metadata>

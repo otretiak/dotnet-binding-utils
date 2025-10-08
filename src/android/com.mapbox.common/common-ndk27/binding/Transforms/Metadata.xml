@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <!-- Remove GoogleDeviceLocationProviderKt -->
+  <remove-node path="//class[@name='GoogleDeviceLocationProviderKt']" />
+  
+  <!-- Remove GooglePlayServicesHelper references -->
+  <remove-node path="//*[@return='com.mapbox.common.location.IGooglePlayServicesHelper']" />
+  <remove-node path="//*[@type='com.mapbox.common.location.IGooglePlayServicesHelper']" />
+  <remove-node path="//*[@extends='com.mapbox.common.location.IGooglePlayServicesHelper']" />
+  <!-- Fix Initializer return types -->
+  <attr path="//class[contains(@name, 'Initializer')]/method[@name='create']" name="managedReturn">Java.Lang.Object</attr>
+  <remove-node path="//class[@name='ResponseReadStream']/implements[@name='com.mapbox.common.ReadStream']" />
+</metadata>

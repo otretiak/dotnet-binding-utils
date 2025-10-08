@@ -1,0 +1,7 @@
+{
+  "groupId": "com.mapbox.maps",
+  "artifactId": "android-base-ndk27", 
+  "version": "11.8.0",
+  "nugetId": "Com.Mapbox.Maps.BaseNdk27",
+  "nugetVersion": "11.8.0-ndk27"
+}
