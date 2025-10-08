@@ -1,5 +1,5 @@
 {
-  "packageId": "Com.Mapbox.Extension.MapsStyle",
+  "packageId": "Com.Mapbox.Extension.MapsStyleNdk27",
   "name": "maps-style",
   "dependencyOnly": true,
   "dotnet8": true,

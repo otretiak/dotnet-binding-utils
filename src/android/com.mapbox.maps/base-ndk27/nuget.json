@@ -1,5 +1,5 @@
 {
-  "packageId": "Com.Mapbox.Maps.Base",
+  "packageId": "Com.Mapbox.Maps.BaseNdk27",
   "name": "base",
   "dependencyOnly": true,
   "dotnet8": true,

@@ -1,5 +1,5 @@
 {
-  "packageId": "Com.Mapbox.Plugin.MapsScalebar",
+  "packageId": "Com.Mapbox.Plugin.MapsScalebarNdk27",
   "name": "maps-scalebar",
   "dependencyOnly": true,
   "dotnet8": true,
