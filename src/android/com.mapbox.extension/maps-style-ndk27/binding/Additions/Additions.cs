@@ -1570,11 +1570,11 @@ namespace Com.Mapbox.Maps.Extension.Style
 
         public TransitionOptions Transition => GetTransition();
 
-        public ColorTheme ColorTheme => GetColorTheme();
+        // public ColorTheme ColorTheme => GetColorTheme();
 
-        public IStyleContract.IStyleRainExtension Rain => GetRain();
+        // public IStyleContract.IStyleRainExtension Rain => GetRain();
 
-        public IStyleContract.IStyleSnowExtension Snow => GetSnow();
+        // public IStyleContract.IStyleSnowExtension Snow => GetSnow();
     }
 }
 
