@@ -1,5 +1,5 @@
 {
-  "packageId": "Com.Mapbox.Plugin.MapsAnimationNdk27",
+  "packageId": "Com.Mapbox.Plugin.MapsAnimation",
   "name": "maps-animation",
   "dependencyOnly": true,
   "dotnet8": true,

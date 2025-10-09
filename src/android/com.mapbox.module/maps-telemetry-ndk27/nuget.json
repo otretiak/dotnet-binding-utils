@@ -1,5 +1,5 @@
 {
-  "packageId": "Com.Mapbox.Module.MapsTelemetryNdk27",
+  "packageId": "Com.Mapbox.Module.MapsTelemetry",
   "name": "maps-telemetry-ndk27",
   "dependencyOnly": false,
   "dotnet8": true,

@@ -1,5 +1,5 @@
 {
-  "packageId": "Com.Mapbox.Plugin.MapsCompassNdk27",
+  "packageId": "Com.Mapbox.Plugin.MapsCompass",
   "name": "maps-compass",
   "dependencyOnly": true,
   "dotnet8": true,

@@ -1,5 +1,5 @@
 {
-  "packageId": "Com.Mapbox.Plugin.MapsOverlayNdk27",
+  "packageId": "Com.Mapbox.Plugin.MapsOverlay",
   "name": "maps-overlay-ndk27",
   "dependencyOnly": false,
   "dotnet8": true,

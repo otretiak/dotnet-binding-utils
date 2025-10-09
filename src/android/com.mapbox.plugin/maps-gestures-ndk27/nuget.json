@@ -1,5 +1,5 @@
 {
-  "packageId": "Com.Mapbox.Plugin.MapsGesturesNdk27",
+  "packageId": "Com.Mapbox.Plugin.MapsGestures",
   "name": "maps-gestures",
   "dependencyOnly": true,
   "dotnet8": true,
