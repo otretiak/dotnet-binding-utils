@@ -1,0 +1,7 @@
+{
+  "packageId": "Com.Mapbox.Plugin.MapsAttributionNdk27",
+  "name": "maps-attribution-ndk27",
+  "dependencyOnly": true,
+  "dotnet8": true,
+  "versionMappings": []
+}
