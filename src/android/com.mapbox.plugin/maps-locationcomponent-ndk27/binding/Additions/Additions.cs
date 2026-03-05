@@ -1,5 +1,6 @@
-// Additions for com.mapbox.plugin:maps-locationcomponent-ndk27:11.15.x
-//
-// Cleared in 11.15.x — previous additions are no longer compatible:
-//
-// - Com.Mapbox.Maps.Plugins.Delegates namespace not found in this AAR
+namespace Com.Mapbox.Maps.Plugins.Locationcomponent {
+    public static class LocationcomponentExtensions {
+        public static unsafe global::Com.Mapbox.Maps.Plugins.Locationcomponent.ILocationComponentPlugin GetLocationComponent (this global::Com.Mapbox.Maps.Plugins.Delegates.IMapPluginProviderDelegate obj)
+            => LocationComponentUtils.GetLocationComponent(obj);
+    }
+}
