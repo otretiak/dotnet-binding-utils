@@ -9,16 +9,12 @@ using Java.Interop;
 //  - PuckLocatedAtPointListenerAction / IsLocatedAt extension
 //  - OnMapClickListenerFunction / OnMapLongClickListenerFunction / IGesturesPluginExtensions
 //  - OnMapLoadErrorListenerAction
-//
-// KEPT CLEARED in 11.15.x:
-//  1. XxxSettings.Creator partial classes implementing IParcelableCreator —
-//     no longer needed; modern .NET Android binding generator handles IParcelable.Creator
-//     automatically, and IParcelableCreator now inherits additional IJavaPeerable members
-//     that the manual implementations did not provide (CS0535).
-//
-//  2. StandardBuildings/StandardPoi/StandardPlaceLabels overrides with unsafe code —
-//     reference Com.Mapbox.Geojson.Feature and Com.Mapbox.Bindgen.Value which are
-//     transitive deps. The generator may auto-handle these bridge methods in .NET 9/10.
+//  - XxxSettings.Creator partial classes — explicit IParcelableCreator impl with nullable
+//    returns required by .NET 9/10 (IParcelableCreator.CreateFromParcel → Object?,
+//    NewArray → Object[]?). Generated code returns non-nullable → CS0738 without these.
+//  - StandardBuildings/StandardPoi/StandardPlaceLabels unsafe overrides — Metadata.xml
+//    renames the generated methods to GetFeatureState_/GetFeaturesetFeature_ so these
+//    public overrides can call them.
 
 namespace Com.Mapbox.Maps.Plugins.Locationcomponent
 {
@@ -99,5 +95,202 @@ namespace Com.Mapbox.Maps.Plugins.Delegates.Listeners
 
         public void OnMapLoadError(global::Com.Mapbox.Maps.Extension.Observable.Eventdata.MapLoadingErrorEventData eventData)
             => action?.Invoke(eventData);
+    }
+}
+
+// IParcelableCreator explicit implementations (.NET 9/10 changed interface to nullable returns)
+namespace Com.Mapbox.Maps.Plugins.Attributions.Generated
+{
+    partial class AttributionSettings
+    {
+        partial class Creator : global::Android.OS.IParcelableCreator
+        {
+            global::Java.Lang.Object? global::Android.OS.IParcelableCreator.CreateFromParcel(global::Android.OS.Parcel? source)
+            {
+                return this.CreateFromParcel(source);
+            }
+
+            global::Java.Lang.Object[]? global::Android.OS.IParcelableCreator.NewArray(int size)
+            {
+                return this.NewArray(size);
+            }
+        }
+    }
+}
+
+namespace Com.Mapbox.Maps.Plugins.Compass.Generated
+{
+    partial class CompassSettings
+    {
+        partial class Creator : global::Android.OS.IParcelableCreator
+        {
+            global::Java.Lang.Object? global::Android.OS.IParcelableCreator.CreateFromParcel(global::Android.OS.Parcel? source)
+            {
+                return this.CreateFromParcel(source);
+            }
+
+            global::Java.Lang.Object[]? global::Android.OS.IParcelableCreator.NewArray(int size)
+            {
+                return this.NewArray(size);
+            }
+        }
+    }
+}
+
+namespace Com.Mapbox.Maps.Plugins.Gestures.Generated
+{
+    partial class GesturesSettings
+    {
+        partial class Creator : global::Android.OS.IParcelableCreator
+        {
+            global::Java.Lang.Object? global::Android.OS.IParcelableCreator.CreateFromParcel(global::Android.OS.Parcel? source)
+            {
+                return this.CreateFromParcel(source);
+            }
+
+            global::Java.Lang.Object[]? global::Android.OS.IParcelableCreator.NewArray(int size)
+            {
+                return this.NewArray(size);
+            }
+        }
+    }
+}
+
+namespace Com.Mapbox.Maps.Plugins.Locationcomponent.Generated
+{
+    partial class LocationComponentSettings
+    {
+        partial class Creator : global::Android.OS.IParcelableCreator
+        {
+            global::Java.Lang.Object? global::Android.OS.IParcelableCreator.CreateFromParcel(global::Android.OS.Parcel? source)
+            {
+                return this.CreateFromParcel(source);
+            }
+
+            global::Java.Lang.Object[]? global::Android.OS.IParcelableCreator.NewArray(int size)
+            {
+                return this.NewArray(size);
+            }
+        }
+    }
+}
+
+namespace Com.Mapbox.Maps.Plugins.Logo.Generated
+{
+    partial class LogoSettings
+    {
+        partial class Creator : global::Android.OS.IParcelableCreator
+        {
+            global::Java.Lang.Object? global::Android.OS.IParcelableCreator.CreateFromParcel(global::Android.OS.Parcel? source)
+            {
+                return this.CreateFromParcel(source);
+            }
+
+            global::Java.Lang.Object[]? global::Android.OS.IParcelableCreator.NewArray(int size)
+            {
+                return this.NewArray(size);
+            }
+        }
+    }
+}
+
+namespace Com.Mapbox.Maps
+{
+    partial class ImageHolder
+    {
+        partial class Creator : global::Android.OS.IParcelableCreator
+        {
+            global::Java.Lang.Object? global::Android.OS.IParcelableCreator.CreateFromParcel(global::Android.OS.Parcel? source)
+            {
+                return this.CreateFromParcel(source);
+            }
+
+            global::Java.Lang.Object[]? global::Android.OS.IParcelableCreator.NewArray(int size)
+            {
+                return this.NewArray(size);
+            }
+        }
+    }
+}
+
+namespace Com.Mapbox.Maps.Plugins
+{
+    partial class LocationPuck2D
+    {
+        partial class Creator : global::Android.OS.IParcelableCreator
+        {
+            global::Java.Lang.Object? global::Android.OS.IParcelableCreator.CreateFromParcel(global::Android.OS.Parcel? source)
+            {
+                return this.CreateFromParcel(source);
+            }
+
+            global::Java.Lang.Object[]? global::Android.OS.IParcelableCreator.NewArray(int size)
+            {
+                return this.NewArray(size);
+            }
+        }
+    }
+
+    partial class LocationPuck3D
+    {
+        partial class Creator : global::Android.OS.IParcelableCreator
+        {
+            global::Java.Lang.Object? global::Android.OS.IParcelableCreator.CreateFromParcel(global::Android.OS.Parcel? source)
+            {
+                return this.CreateFromParcel(source);
+            }
+
+            global::Java.Lang.Object[]? global::Android.OS.IParcelableCreator.NewArray(int size)
+            {
+                return this.NewArray(size);
+            }
+        }
+    }
+}
+
+namespace Com.Mapbox.Maps.Plugins.Scalebar.Generated
+{
+    partial class ScaleBarSettings
+    {
+        partial class Creator : global::Android.OS.IParcelableCreator
+        {
+            global::Java.Lang.Object? global::Android.OS.IParcelableCreator.CreateFromParcel(global::Android.OS.Parcel? source)
+            {
+                return this.CreateFromParcel(source);
+            }
+
+            global::Java.Lang.Object[]? global::Android.OS.IParcelableCreator.NewArray(int size)
+            {
+                return this.NewArray(size);
+            }
+        }
+    }
+}
+
+// StandardBuildings/StandardPoi/StandardPlaceLabels — override abstract members from
+// TypedFeaturesetDescriptor. Metadata.xml renames the generated bridge methods to
+// GetFeatureState_/GetFeaturesetFeature_ so these overrides can call them.
+namespace Com.Mapbox.Maps.Interactions.Standard.Generated
+{
+    partial class StandardBuildings
+    {
+        public override unsafe global::Java.Lang.Object GetFeaturesetFeature(global::Com.Mapbox.Geojson.Feature feature, string? featureNamespace, global::Com.Mapbox.Bindgen.Value rawState)
+            => GetFeaturesetFeature_(feature, featureNamespace, rawState);
+        public override unsafe global::Java.Lang.Object GetFeatureState(global::Com.Mapbox.Bindgen.Value rawState)
+            => GetFeatureState_(rawState);
+    }
+    partial class StandardPoi
+    {
+        public override unsafe global::Java.Lang.Object GetFeaturesetFeature(global::Com.Mapbox.Geojson.Feature feature, string? featureNamespace, global::Com.Mapbox.Bindgen.Value rawState)
+            => GetFeaturesetFeature_(feature, featureNamespace, rawState);
+        public override unsafe global::Java.Lang.Object GetFeatureState(global::Com.Mapbox.Bindgen.Value rawState)
+            => GetFeatureState_(rawState);
+    }
+    partial class StandardPlaceLabels
+    {
+        public override unsafe global::Java.Lang.Object GetFeaturesetFeature(global::Com.Mapbox.Geojson.Feature feature, string? featureNamespace, global::Com.Mapbox.Bindgen.Value rawState)
+            => GetFeaturesetFeature_(feature, featureNamespace, rawState);
+        public override unsafe global::Java.Lang.Object GetFeatureState(global::Com.Mapbox.Bindgen.Value rawState)
+            => GetFeatureState_(rawState);
     }
 }

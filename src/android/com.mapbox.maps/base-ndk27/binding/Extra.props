@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <!-- Required for unsafe code in Additions.cs (StandardBuildings/Poi/PlaceLabels GetFeatureState/GetFeaturesetFeature overrides) -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+</Project>

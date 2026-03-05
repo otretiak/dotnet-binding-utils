@@ -1,11 +1,18 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-    <!-- When a class extends com.mapbox.maps.interactions.TypedFeaturesetDescriptor,
-		 rename its getFeatureState method to append an 'X' to the managed name -->
-    <attr
-        path="//method[@name='getFeatureState' and ancestor::class[starts-with(@name, 'Standard') and @extends='com.mapbox.maps.interactions.TypedFeaturesetDescriptor']]"
-        name="managedName">GetFeatureStateX</attr>
-    <attr
-        path="//method[@name='getFeaturesetFeature' and ancestor::class[starts-with(@name, 'Standard') and @extends='com.mapbox.maps.interactions.TypedFeaturesetDescriptor']]"
-        name="managedName">GetFeaturesetFeatureX</attr>
+  <!-- Rename getFeatureState/getFeaturesetFeature to private names (_) so Additions.cs can
+       provide the public 'unsafe' override that calls them. Required because the parameter types
+       (com.mapbox.bindgen.Value, com.mapbox.geojson.Feature) need unsafe JNI access. -->
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardBuildings']/method[@name='getFeatureState' and count(parameter)=1 and parameter[1][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeatureState_</attr>
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardBuildings']/method[@name='getFeaturesetFeature' and count(parameter)=3 and parameter[1][@type='com.mapbox.geojson.Feature'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeaturesetFeature_</attr>
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardPoi']/method[@name='getFeatureState' and count(parameter)=1 and parameter[1][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeatureState_</attr>
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardPoi']/method[@name='getFeaturesetFeature' and count(parameter)=3 and parameter[1][@type='com.mapbox.geojson.Feature'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeaturesetFeature_</attr>
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardPlaceLabels']/method[@name='getFeatureState' and count(parameter)=1 and parameter[1][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeatureState_</attr>
+  <attr path="/api/package[@name='com.mapbox.maps.interactions.standard.generated']/class[@name='StandardPlaceLabels']/method[@name='getFeaturesetFeature' and count(parameter)=3 and parameter[1][@type='com.mapbox.geojson.Feature'] and parameter[2][@type='java.lang.String'] and parameter[3][@type='com.mapbox.bindgen.Value']]"
+        name="managedName">GetFeaturesetFeature_</attr>
 </metadata>
