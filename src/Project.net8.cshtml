@@ -19,6 +19,7 @@
 }
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Condition=" EXISTS('../../maven.props') " Project="../../maven.props" />
+  <Import Condition=" EXISTS('Extra.props') " Project="Extra.props" />
   <Target Name="_CleanAarOutputPath" AfterTargets="_CreateAar" BeforeTargets="_IncludeAarInNuGetPackage">
     <Delete Files="$(_AarOutputPath)" />
   </Target>

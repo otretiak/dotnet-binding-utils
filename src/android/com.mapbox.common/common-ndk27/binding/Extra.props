@@ -1,0 +1,7 @@
+<Project>
+  <!-- Extra compile-time references required by Additions.cs but not auto-resolved by Binderator -->
+  <ItemGroup>
+    <!-- AndroidX.Startup.IInitializer is implemented in Additions.cs -->
+    <PackageReference Include="Xamarin.AndroidX.Startup.StartupRuntime" Version="1.2.0.6" PrivateAssets="none" />
+  </ItemGroup>
+</Project>
