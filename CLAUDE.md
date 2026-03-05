@@ -76,6 +76,7 @@ Also add to the package `.gitignore`:
 
 ## Dependency Version Overrides (fixed.json)
 `fixed.json` files override auto-resolved AndroidX/Kotlin NuGet package versions.
+- **fixed.json completeness**: All ndk27 packages depending on Kotlin/AndroidX should include the same version pin set as `common-ndk27/24.15.3.fixed.json` to avoid NU1605 downgrades.
 Current net10-compatible versions (as of 2026-03):
 - `Xamarin.AndroidX.Annotation`: `1.9.1.6`
 - `Xamarin.AndroidX.Core` / `Core.Core.Ktx`: `1.17.0.1`
@@ -103,6 +104,7 @@ Current net10-compatible versions (as of 2026-03):
 - **Mapbox packages must be built bottom-up**: each package needs its NuGet dependencies available before it can be built.
 - **Root-owned `obj/` and `bin/`** after a `sudo`-run build block subsequent non-sudo builds with `GDL004: Access denied`. Fix: `sudo chown -R $(whoami) src/libs/BindingHost/obj src/libs/BindingHost/bin`
 - **Gradle `.gradle` folder locked**: Kill Java process first (`taskkill -F -im java.exe` on Windows).
+- **CS0738 IParcelableCreator (.NET 9/10)**: Generator emits `Creator` classes with non-nullable `CreateFromParcel`/`NewArray` returns, but the interface now requires `Object?`/`Object[]?`. Fix: add explicit interface impl in Additions.cs partial — `Java.Lang.Object? IParcelableCreator.CreateFromParcel(Parcel? s) => CreateFromParcel(s);`
 
 ## Mapbox ndk27 Build Order (11.15.3)
 Build in this sequence (each outputs to `nugets/`). Use `sh bind-mapbox-ndk27.sh` to run all at once.
@@ -139,10 +141,10 @@ Critical for writing `Additions.cs` and deciding which `Extra.props` references 
 | Package | Status | Notes |
 |---------|--------|-------|
 | `common-ndk27` | Kept + Extra.props | Implements `AndroidX.Startup.IInitializer`; Extra.props adds `Xamarin.AndroidX.Startup.StartupRuntime` |
-| `base-ndk27` | Cleared | Creator classes (IParcelableCreator grew in .NET 9/10); unsafe StandardBuildings/Poi/PlaceLabels with missing types |
+| `base-ndk27` | Restored + Extra.props | Creator partial classes with nullable `Object?`/`Object[]?` explicit IParcelableCreator impl (.NET 9/10); StandardBuildings/Poi/PlaceLabels unsafe GetFeatureState_/GetFeaturesetFeature_ overrides; Extra.props adds AllowUnsafeBlocks |
 | `android-core-ndk27` | Kept + Extra.props | Implements `AndroidX.Startup.IInitializer`; Extra.props adds `Xamarin.AndroidX.Startup.StartupRuntime` |
 | `android-ndk27` | Cleared | Types moved to `android-core-ndk27` in 11.x |
-| `maps-style-ndk27` | Cleared | ExpressionBuilder DSL (protection levels changed), Layer overrides (signatures changed) |
+| `maps-style-ndk27` | Cleared | **DO NOT copy from non-ndk27 maps-style** — ndk27 `ExpressionBuilder`/`CollatorBuilder`/`FormatBuilder`/`InterpolatorBuilder` are all `protected` (CS0122+CS0050 on every `Action<Builder>` overload); `Layer`/`MapboxStyleManager`/`IStyleContract`/`FlatLight`/`Projection` absent |
 | `maps-localization-ndk27` | Empty | No Additions needed |
 | `maps-telemetry-ndk27` | Empty | No Additions needed |
 | `maps-animation-ndk27` | Empty | No Additions needed |
