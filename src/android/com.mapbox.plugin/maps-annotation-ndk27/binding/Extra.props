@@ -1,0 +1,9 @@
+<Project>
+  <!-- Extra compile-time references required by Additions.cs -->
+  <ItemGroup>
+    <!-- IAnnotationManager, IMapCameraManagerDelegate are in base-ndk27 -->
+    <PackageReference Include="Com.Mapbox.Maps.BaseNdk27" Version="11.15.3" PrivateAssets="none" />
+    <!-- MoveDistancesObject is in mapbox-android-gestures -->
+    <PackageReference Include="Com.Mapbox.Mapboxsdk.MapboxAndroidGestures" Version="0.9.1" PrivateAssets="none" />
+  </ItemGroup>
+</Project>

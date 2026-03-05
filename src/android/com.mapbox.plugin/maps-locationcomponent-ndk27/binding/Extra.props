@@ -1,0 +1,7 @@
+<Project>
+  <!-- Extra compile-time references required by Additions.cs -->
+  <ItemGroup>
+    <!-- IMapPluginProviderDelegate, ILocationComponentPlugin are in base-ndk27 -->
+    <PackageReference Include="Com.Mapbox.Maps.BaseNdk27" Version="11.15.3" PrivateAssets="none" />
+  </ItemGroup>
+</Project>
