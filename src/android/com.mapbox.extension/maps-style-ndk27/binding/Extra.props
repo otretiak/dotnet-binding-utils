@@ -1,0 +1,6 @@
+<Project>
+  <PropertyGroup>
+    <!-- Required for unsafe code in Additions.cs (Layer overrides, PropertyValue JNI, Projection/Light utils) -->
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+</Project>
