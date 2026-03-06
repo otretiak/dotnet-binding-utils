@@ -105,6 +105,9 @@ Current net10-compatible versions (as of 2026-03):
 - **Root-owned `obj/` and `bin/`** after a `sudo`-run build block subsequent non-sudo builds with `GDL004: Access denied`. Fix: `sudo chown -R $(whoami) src/libs/BindingHost/obj src/libs/BindingHost/bin`
 - **Gradle `.gradle` folder locked**: Kill Java process first (`taskkill -F -im java.exe` on Windows).
 - **CS0738 IParcelableCreator (.NET 9/10)**: Generator emits `Creator` classes with non-nullable `CreateFromParcel`/`NewArray` returns, but the interface now requires `Object?`/`Object[]?`. Fix: add explicit interface impl in Additions.cs partial — `Java.Lang.Object? IParcelableCreator.CreateFromParcel(Parcel? s) => CreateFromParcel(s);`
+- **Generator type-param `classBound` resolution (silent class rejection)**: The generator independently validates each type parameter's `classBound` against `--ref` DLLs — separate from class-parse. If the bound type is absent (e.g. `Layer` dropped by maps-style-ndk27's class-parse), the generator silently drops the class AND all `<add-node>` subclasses. Symptom: classes in `api.xml.fixed` but absent from `generated/src/`. Fix: change `classBound` to `java.lang.Object` and remove `genericConstraints` — see Metadata Snippets below.
+- **`<add-node>` + abstract C# base**: Classes restored via `<add-node>` that extend a generated `abstract` C# class must implement every abstract member in Additions.cs using `_members.InstanceMethods.InvokeVirtualObjectMethod`/`InvokeVirtualVoidMethod`. Symptom: CS0534 "does not implement inherited abstract member".
+- **NU1504 duplicate in Extra.props**: Binderator auto-adds POM transitive dependencies to the generated `.csproj`. Adding the same package in `Extra.props` causes NU1504. Verify the generated `.csproj` before adding references to `Extra.props`.
 - **Full rebuild with `bind-mapbox-ndk27.sh`**: BinderateTask runs (regenerates all .csprojs) but NugetTask always fails due to workload permissions. Follow with `dotnet pack <binding/*.csproj> -c Release -o nugets/` for each package in build order. After deleting nugets, also re-run `sh bind.sh --artifact "com.mapbox.common:common-ndk27:24.15.3"` first — its .csproj may have drifted to the previous version.
 
 ## Mapbox ndk27 Build Order (11.15.3)
@@ -152,7 +155,7 @@ Critical for writing `Additions.cs` and deciding which `Extra.props` references 
 | `maps-localization-ndk27` | Empty | No Additions needed |
 | `maps-telemetry-ndk27` | Empty | No Additions needed |
 | `maps-animation-ndk27` | Empty | No Additions needed |
-| `maps-annotation-ndk27` | Restored + Extra.props | `Build()` overloads on annotation options; Extra.props adds `base-ndk27` + `MapboxAndroidGestures` |
+| `maps-annotation-ndk27` | Restored + Extra.props | `AnnotationManagerImpl.L classBound` changed to `java.lang.Object` (Layer dropped by maps-style class-parse → 4 manager classes silently rejected); abstract `AnnotationIdKey`/`SetDataDrivenPropertyIsUsed` implemented via JNI in all 4 `*AnnotationManager` sealed partials; `Build()` overloads on `*AnnotationOptions` classes; `GetOffsetGeometry()` overrides on `*Annotation` classes; Extra.props adds `MapboxAndroidGestures` only (BaseNdk27 already in generated csproj) |
 | `maps-attribution-ndk27` | Cleared | Manual JNI `SetContentDescription` no longer needed (generator handles it) |
 | `maps-compass-ndk27` | Empty | No Additions needed |
 | `maps-gestures-ndk27` | Restored + Extra.props | `GetGestures()`/`GetGesturesManager()` extensions; Extra.props adds `base-ndk27` + `AndroidCoreNdk27` + `CommonNdk27` + `MapboxSdkGeojson` + `MapboxAndroidGestures` |
@@ -220,6 +223,16 @@ console.log(x.split('\n')
 ### Companion field conflict
 ```xml
 <attr path="//field[@name='Companion']" name="managedName">CompanionField</attr>
+```
+
+### Type parameter `classBound` unresolvable — relax to Object
+When a class (or its `<add-node>` subclasses) is silently absent from `generated/src/` despite appearing in `api.xml.fixed`, check if its type parameter `classBound` references a type dropped by class-parse:
+```xml
+<attr path="//class[@name='Foo']/typeParameters/typeParameter[@name='T']"
+      name="classBound">java.lang.Object</attr>
+<attr path="//class[@name='Foo']/typeParameters/typeParameter[@name='T']"
+      name="jni-classBound">Ljava/lang/Object;</attr>
+<remove-node path="//class[@name='Foo']/typeParameters/typeParameter[@name='T']/genericConstraints" />
 ```
 
 ## Environment
