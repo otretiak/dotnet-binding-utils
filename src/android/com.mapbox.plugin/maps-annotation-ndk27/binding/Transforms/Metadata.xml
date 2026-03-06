@@ -1,5 +1,22 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
+	<!--
+	  AnnotationManagerImpl has a generic type parameter L with classBound=Layer (from maps-style-ndk27).
+	  Layer was dropped from maps-style-ndk27 by class-parse because Layer implements StyleLayerExtension
+	  from base-ndk27 JAR which class-parse cannot see (no cross-JAR reference support).
+	  As a result, the binding generator also cannot find Layer in the maps-style-ndk27 DLL reference and
+	  rejects AnnotationManagerImpl entirely — which then causes CircleAnnotationManager etc. (which extend
+	  AnnotationManagerImpl) to be rejected as well.
+	  Fix: change L's classBound to java.lang.Object so the generator can process AnnotationManagerImpl
+	  and its raw-type subclasses restored via <add-node> below.
+	-->
+	<attr
+		path="/api/package[@name='com.mapbox.maps.plugin.annotation']/class[@name='AnnotationManagerImpl']/typeParameters/typeParameter[@name='L']"
+		name="classBound">java.lang.Object</attr>
+	<attr
+		path="/api/package[@name='com.mapbox.maps.plugin.annotation']/class[@name='AnnotationManagerImpl']/typeParameters/typeParameter[@name='L']"
+		name="jni-classBound">Ljava/lang/Object;</attr>
+	<remove-node path="/api/package[@name='com.mapbox.maps.plugin.annotation']/class[@name='AnnotationManagerImpl']/typeParameters/typeParameter[@name='L']/genericConstraints" />
 	<attr
 		path="/api/package[@name='com.mapbox.maps.plugin.annotation.generated']/class[substring(@name, string-length(@name) - string-length('AnnotationOptions') + 1)]/method[@name='build' and count(parameter)=2]"
 		name="managedName">DoBuild</attr>
@@ -12,6 +29,134 @@
 	<attr
 		path="/api/package[@name='com.mapbox.maps.plugin.annotation.generated']/class[substring(@name, string-length(@name) - string-length('AnnotationManager') + 1)]/method[@name='createDragLayer' and count(parameter)=0]"
 		name="managedName">DoCreateDragLayer</attr>
+	<!--
+	  CircleAnnotationManager / PointAnnotationManager / PolygonAnnotationManager /
+	  PolylineAnnotationManager were dropped by class-parse because their generic base type
+	  AnnotationManagerImpl<..., CircleLayer> references CircleLayer (etc.) from
+	  maps-style-ndk27, which class-parse cannot see (no cross-JAR reference support).
+	  We restore them here with a raw (non-generic) extends="AnnotationManagerImpl" so that
+	  inherited CRUD methods (create/delete/update, add*Listener) are accessible in C#.
+	  Layer-property setters on the managers are NOT restored (they use further style types).
+	-->
+	<add-node path="/api/package[@name='com.mapbox.maps.plugin.annotation.generated']">
+		<class abstract="false" deprecated="not deprecated"
+			extends="com.mapbox.maps.plugin.annotation.AnnotationManagerImpl"
+			extends-generic-aware="com.mapbox.maps.plugin.annotation.AnnotationManagerImpl"
+			jni-extends="Lcom/mapbox/maps/plugin/annotation/AnnotationManagerImpl;"
+			final="true" name="CircleAnnotationManager" static="false" visibility="public"
+			jni-signature="Lcom/mapbox/maps/plugin/annotation/generated/CircleAnnotationManager;">
+			<constructor deprecated="not deprecated" final="false"
+				name="CircleAnnotationManager"
+				jni-signature="(Lcom/mapbox/maps/plugin/delegates/MapDelegateProvider;Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;)V"
+				bridge="false" static="false"
+				type="com.mapbox.maps.plugin.annotation.generated.CircleAnnotationManager"
+				synthetic="false" visibility="public">
+				<parameter name="delegateProvider" type="com.mapbox.maps.plugin.delegates.MapDelegateProvider" jni-type="Lcom/mapbox/maps/plugin/delegates/MapDelegateProvider;" />
+				<parameter name="annotationConfig" type="com.mapbox.maps.plugin.annotation.AnnotationConfig" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;" />
+			</constructor>
+		</class>
+		<class abstract="false" deprecated="not deprecated"
+			extends="com.mapbox.maps.plugin.annotation.AnnotationManagerImpl"
+			extends-generic-aware="com.mapbox.maps.plugin.annotation.AnnotationManagerImpl"
+			jni-extends="Lcom/mapbox/maps/plugin/annotation/AnnotationManagerImpl;"
+			final="true" name="PointAnnotationManager" static="false" visibility="public"
+			jni-signature="Lcom/mapbox/maps/plugin/annotation/generated/PointAnnotationManager;">
+			<constructor deprecated="not deprecated" final="false"
+				name="PointAnnotationManager"
+				jni-signature="(Lcom/mapbox/maps/plugin/delegates/MapDelegateProvider;Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;)V"
+				bridge="false" static="false"
+				type="com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager"
+				synthetic="false" visibility="public">
+				<parameter name="delegateProvider" type="com.mapbox.maps.plugin.delegates.MapDelegateProvider" jni-type="Lcom/mapbox/maps/plugin/delegates/MapDelegateProvider;" />
+				<parameter name="annotationConfig" type="com.mapbox.maps.plugin.annotation.AnnotationConfig" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;" />
+			</constructor>
+		</class>
+		<class abstract="false" deprecated="not deprecated"
+			extends="com.mapbox.maps.plugin.annotation.AnnotationManagerImpl"
+			extends-generic-aware="com.mapbox.maps.plugin.annotation.AnnotationManagerImpl"
+			jni-extends="Lcom/mapbox/maps/plugin/annotation/AnnotationManagerImpl;"
+			final="true" name="PolygonAnnotationManager" static="false" visibility="public"
+			jni-signature="Lcom/mapbox/maps/plugin/annotation/generated/PolygonAnnotationManager;">
+			<constructor deprecated="not deprecated" final="false"
+				name="PolygonAnnotationManager"
+				jni-signature="(Lcom/mapbox/maps/plugin/delegates/MapDelegateProvider;Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;)V"
+				bridge="false" static="false"
+				type="com.mapbox.maps.plugin.annotation.generated.PolygonAnnotationManager"
+				synthetic="false" visibility="public">
+				<parameter name="delegateProvider" type="com.mapbox.maps.plugin.delegates.MapDelegateProvider" jni-type="Lcom/mapbox/maps/plugin/delegates/MapDelegateProvider;" />
+				<parameter name="annotationConfig" type="com.mapbox.maps.plugin.annotation.AnnotationConfig" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;" />
+			</constructor>
+		</class>
+		<class abstract="false" deprecated="not deprecated"
+			extends="com.mapbox.maps.plugin.annotation.AnnotationManagerImpl"
+			extends-generic-aware="com.mapbox.maps.plugin.annotation.AnnotationManagerImpl"
+			jni-extends="Lcom/mapbox/maps/plugin/annotation/AnnotationManagerImpl;"
+			final="true" name="PolylineAnnotationManager" static="false" visibility="public"
+			jni-signature="Lcom/mapbox/maps/plugin/annotation/generated/PolylineAnnotationManager;">
+			<constructor deprecated="not deprecated" final="false"
+				name="PolylineAnnotationManager"
+				jni-signature="(Lcom/mapbox/maps/plugin/delegates/MapDelegateProvider;Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;)V"
+				bridge="false" static="false"
+				type="com.mapbox.maps.plugin.annotation.generated.PolylineAnnotationManager"
+				synthetic="false" visibility="public">
+				<parameter name="delegateProvider" type="com.mapbox.maps.plugin.delegates.MapDelegateProvider" jni-type="Lcom/mapbox/maps/plugin/delegates/MapDelegateProvider;" />
+				<parameter name="annotationConfig" type="com.mapbox.maps.plugin.annotation.AnnotationConfig" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;" />
+			</constructor>
+		</class>
+	</add-node>
+	<!-- Restore the factory extension methods on the *AnnotationManagerKt companion classes -->
+	<add-node path="/api/package[@name='com.mapbox.maps.plugin.annotation.generated']/class[@name='CircleAnnotationManagerKt']">
+		<method abstract="false" deprecated="not deprecated" final="true"
+			name="createCircleAnnotationManager"
+			jni-signature="(Lcom/mapbox/maps/plugin/annotation/AnnotationPlugin;Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;)Lcom/mapbox/maps/plugin/annotation/generated/CircleAnnotationManager;"
+			bridge="false" native="false"
+			return="com.mapbox.maps.plugin.annotation.generated.CircleAnnotationManager"
+			jni-return="Lcom/mapbox/maps/plugin/annotation/generated/CircleAnnotationManager;"
+			static="true" synchronized="false" synthetic="false" visibility="public"
+			return-not-null="true">
+			<parameter name="obj" type="com.mapbox.maps.plugin.annotation.AnnotationPlugin" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationPlugin;" not-null="true" />
+			<parameter name="annotationConfig" type="com.mapbox.maps.plugin.annotation.AnnotationConfig" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;" />
+		</method>
+	</add-node>
+	<add-node path="/api/package[@name='com.mapbox.maps.plugin.annotation.generated']/class[@name='PointAnnotationManagerKt']">
+		<method abstract="false" deprecated="not deprecated" final="true"
+			name="createPointAnnotationManager"
+			jni-signature="(Lcom/mapbox/maps/plugin/annotation/AnnotationPlugin;Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;)Lcom/mapbox/maps/plugin/annotation/generated/PointAnnotationManager;"
+			bridge="false" native="false"
+			return="com.mapbox.maps.plugin.annotation.generated.PointAnnotationManager"
+			jni-return="Lcom/mapbox/maps/plugin/annotation/generated/PointAnnotationManager;"
+			static="true" synchronized="false" synthetic="false" visibility="public"
+			return-not-null="true">
+			<parameter name="obj" type="com.mapbox.maps.plugin.annotation.AnnotationPlugin" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationPlugin;" not-null="true" />
+			<parameter name="annotationConfig" type="com.mapbox.maps.plugin.annotation.AnnotationConfig" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;" />
+		</method>
+	</add-node>
+	<add-node path="/api/package[@name='com.mapbox.maps.plugin.annotation.generated']/class[@name='PolygonAnnotationManagerKt']">
+		<method abstract="false" deprecated="not deprecated" final="true"
+			name="createPolygonAnnotationManager"
+			jni-signature="(Lcom/mapbox/maps/plugin/annotation/AnnotationPlugin;Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;)Lcom/mapbox/maps/plugin/annotation/generated/PolygonAnnotationManager;"
+			bridge="false" native="false"
+			return="com.mapbox.maps.plugin.annotation.generated.PolygonAnnotationManager"
+			jni-return="Lcom/mapbox/maps/plugin/annotation/generated/PolygonAnnotationManager;"
+			static="true" synchronized="false" synthetic="false" visibility="public"
+			return-not-null="true">
+			<parameter name="obj" type="com.mapbox.maps.plugin.annotation.AnnotationPlugin" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationPlugin;" not-null="true" />
+			<parameter name="annotationConfig" type="com.mapbox.maps.plugin.annotation.AnnotationConfig" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;" />
+		</method>
+	</add-node>
+	<add-node path="/api/package[@name='com.mapbox.maps.plugin.annotation.generated']/class[@name='PolylineAnnotationManagerKt']">
+		<method abstract="false" deprecated="not deprecated" final="true"
+			name="createPolylineAnnotationManager"
+			jni-signature="(Lcom/mapbox/maps/plugin/annotation/AnnotationPlugin;Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;)Lcom/mapbox/maps/plugin/annotation/generated/PolylineAnnotationManager;"
+			bridge="false" native="false"
+			return="com.mapbox.maps.plugin.annotation.generated.PolylineAnnotationManager"
+			jni-return="Lcom/mapbox/maps/plugin/annotation/generated/PolylineAnnotationManager;"
+			static="true" synchronized="false" synthetic="false" visibility="public"
+			return-not-null="true">
+			<parameter name="obj" type="com.mapbox.maps.plugin.annotation.AnnotationPlugin" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationPlugin;" not-null="true" />
+			<parameter name="annotationConfig" type="com.mapbox.maps.plugin.annotation.AnnotationConfig" jni-type="Lcom/mapbox/maps/plugin/annotation/AnnotationConfig;" />
+		</method>
+	</add-node>
 	<remove-node path="//implements[@name='com.mapbox.maps.plugin.annotation.OnAnnotationClickListener']" />
 	<add-node path="/api/package[@name='com.mapbox.maps.plugin.annotation.generated']/interface[@name='OnCircleAnnotationClickListener']">
 		<method abstract="true" deprecated="not deprecated" final="false" name="onAnnotationClick" jni-signature="(LLcom/mapbox/maps/plugin/annotation/generated/CircleAnnotation;)Z" bridge="false" native="false" return="boolean" jni-return="Z" static="false" synchronized="false" synthetic="false" visibility="public">
