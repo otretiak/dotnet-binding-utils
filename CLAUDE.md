@@ -105,6 +105,7 @@ Current net10-compatible versions (as of 2026-03):
 - **Root-owned `obj/` and `bin/`** after a `sudo`-run build block subsequent non-sudo builds with `GDL004: Access denied`. Fix: `sudo chown -R $(whoami) src/libs/BindingHost/obj src/libs/BindingHost/bin`
 - **Gradle `.gradle` folder locked**: Kill Java process first (`taskkill -F -im java.exe` on Windows).
 - **CS0738 IParcelableCreator (.NET 9/10)**: Generator emits `Creator` classes with non-nullable `CreateFromParcel`/`NewArray` returns, but the interface now requires `Object?`/`Object[]?`. Fix: add explicit interface impl in Additions.cs partial — `Java.Lang.Object? IParcelableCreator.CreateFromParcel(Parcel? s) => CreateFromParcel(s);`
+- **Full rebuild with `bind-mapbox-ndk27.sh`**: BinderateTask runs (regenerates all .csprojs) but NugetTask always fails due to workload permissions. Follow with `dotnet pack <binding/*.csproj> -c Release -o nugets/` for each package in build order. After deleting nugets, also re-run `sh bind.sh --artifact "com.mapbox.common:common-ndk27:24.15.3"` first — its .csproj may have drifted to the previous version.
 
 ## Mapbox ndk27 Build Order (11.15.3)
 Build in this sequence (each outputs to `nugets/`). Use `sh bind-mapbox-ndk27.sh` to run all at once.
@@ -136,6 +137,9 @@ Critical for writing `Additions.cs` and deciding which `Extra.props` references 
 | `AndroidGesturesManager`, `MoveDistancesObject` | `Com.Mapbox.Android.Gestures` | `Com.Mapbox.Mapboxsdk.MapboxAndroidGestures 0.9.1` |
 | `GesturesUtils` | `Com.Mapbox.Maps.Plugins.Gestures` | `maps-gestures-ndk27` (in the AAR itself) |
 | `LocationComponentUtils` | `Com.Mapbox.Maps.Plugins.Locationcomponent` | `maps-locationcomponent-ndk27` (in the AAR itself) |
+| Camera types (`CameraOptions`, `CameraState`, `CameraBounds`, `ScreenCoordinate`, `FreeCameraOptions`, `CoordinateBounds`, `CoordinateBoundsZoom`, `MapCenterAltitudeMode`, `CoordinateInfo`, `Image`) | `Com.Mapbox.Maps` | `android-core-ndk27` |
+| `Cancelable`, `LocationError`, `IGeofencingUtilsUserConsentResponseCallback` | `Com.Mapbox.Common` / `Com.Mapbox.Common.Location` / `Com.Mapbox.Common.Geofencing` | `common-ndk27` |
+| `Point`, `Feature`, `IGeometry` | `Com.Mapbox.Geojson` | `Com.Mapbox.Mapboxsdk.MapboxSdkGeojson 7.5.0` |
 
 ## Mapbox ndk27 — Additions.cs Status (11.15.3)
 | Package | Status | Notes |
@@ -151,13 +155,33 @@ Critical for writing `Additions.cs` and deciding which `Extra.props` references 
 | `maps-annotation-ndk27` | Restored + Extra.props | `Build()` overloads on annotation options; Extra.props adds `base-ndk27` + `MapboxAndroidGestures` |
 | `maps-attribution-ndk27` | Cleared | Manual JNI `SetContentDescription` no longer needed (generator handles it) |
 | `maps-compass-ndk27` | Empty | No Additions needed |
-| `maps-gestures-ndk27` | Restored + Extra.props | `GetGestures()`/`GetGesturesManager()` extensions; Extra.props adds `base-ndk27` + `MapboxAndroidGestures` |
+| `maps-gestures-ndk27` | Restored + Extra.props | `GetGestures()`/`GetGesturesManager()` extensions; Extra.props adds `base-ndk27` + `AndroidCoreNdk27` + `CommonNdk27` + `MapboxSdkGeojson` + `MapboxAndroidGestures` |
 | `maps-lifecycle-ndk27` | Empty | No Additions needed |
-| `maps-locationcomponent-ndk27` | Restored + Extra.props | `GetLocationComponent()` extension; Extra.props adds `base-ndk27` |
+| `maps-locationcomponent-ndk27` | Empty Additions.cs + Extra.props | No Additions needed (GetLocationComponent() removed in ndk27); Extra.props adds `base-ndk27` + `AndroidCoreNdk27` + `CommonNdk27` + `MapboxSdkGeojson` |
 | `maps-logo-ndk27` | Empty | No Additions needed |
 | `maps-overlay-ndk27` | Empty | No Additions needed |
 | `maps-scalebar-ndk27` | Empty | No Additions needed |
 | `maps-viewport-ndk27` | Restored + Extra.props | `TransitionTo()`/`TransitionToAsync()` + `ViewPortCompletionListenerAction`; Extra.props adds `base-ndk27` |
+
+## BG8700/BG8800 — Transitive Type Resolution
+The binding generator (`generator` tool) validates types **transitively** from `--ref` DLLs. When `base-ndk27.dll` contains `IMapCameraManagerDelegate.SetCamera(CameraOptions)`, the generator looks up `CameraOptions` in all `--ref` DLLs. If `android-core-ndk27.dll` is not in the ref list, BG8700/BG8800 fires even though the binding's own `api.xml` doesn't mention `CameraOptions` at all.
+
+**Standard Extra.props recipe for any ndk27 plugin that references `base-ndk27`:**
+```xml
+<!-- Delegate interfaces (IMapCameraManagerDelegate etc.) are in base-ndk27 -->
+<PackageReference Include="Com.Mapbox.Maps.BaseNdk27" Version="11.15.3" PrivateAssets="none" />
+<!-- Camera types (CameraOptions, ScreenCoordinate, Image, etc.) are in android-core-ndk27 -->
+<PackageReference Include="Com.Mapbox.Maps.AndroidCoreNdk27" Version="11.15.3" PrivateAssets="none" />
+<!-- Cancelable, LocationError, IGeofencingUtils are in common-ndk27 -->
+<PackageReference Include="Com.Mapbox.Common.CommonNdk27" Version="24.15.3" PrivateAssets="none" />
+<!-- Point, Feature, IGeometry are in mapbox-sdk-geojson -->
+<PackageReference Include="Com.Mapbox.Mapboxsdk.MapboxSdkGeojson" Version="7.5.0" PrivateAssets="none" />
+```
+
+**Debugging BG errors — key artifacts to inspect:**
+- `binding/obj/Release/net10.0-android/generated/generator.rsp` — lists all `--ref` DLLs the generator sees; missing refs here = BG errors
+- `binding/obj/Release/net10.0-android/generated/type-mapping.txt` — maps Java types → C# types for a given package; use to find which package owns a type
+- `binding/obj/Release/net10.0-android/java-resolution-report.log` — shows types removed from api.xml during class-parse (class-parse has no reference JARs, only the InputJar)
 
 ## Metadata Snippets for Common Binding Errors
 Use browser DevTools console to generate metadata XML from error output:
