@@ -1,4 +1,8 @@
 <Project>
+  <!-- Required for unsafe code in Additions.cs (GetOffsetGeometry overrides) -->
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
   <!-- Extra compile-time references required by Additions.cs -->
   <ItemGroup>
     <!-- IAnnotationManager, IMapCameraManagerDelegate are in base-ndk27 -->

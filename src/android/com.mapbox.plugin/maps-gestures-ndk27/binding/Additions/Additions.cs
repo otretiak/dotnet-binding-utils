@@ -1,8 +1,5 @@
-namespace Com.Mapbox.Maps.Plugins.Gestures {
-    public static class GesturesExtensions {
-        public static unsafe global::Com.Mapbox.Maps.Plugins.Gestures.IGesturesPlugin GetGestures (this global::Com.Mapbox.Maps.Plugins.Delegates.IMapPluginProviderDelegate obj)
-            => GesturesUtils.GetGestures(obj);
-        public static unsafe global::Com.Mapbox.Android.Gestures.AndroidGesturesManager GetGesturesManager (this global::Com.Mapbox.Maps.Plugins.Delegates.IMapPluginExtensionsDelegate obj)
-            => GesturesUtils.GetGesturesManager(obj);
-    }
-}
+// maps-gestures-ndk27 Additions.cs — intentionally empty.
+//
+// The ndk27 GesturesUtils class has no static GetGestures()/GetGesturesManager()
+// methods — those Kotlin extension functions were removed from the ndk27 AAR.
+// Extension methods calling those would produce CS1501 (no overload takes 1 argument).

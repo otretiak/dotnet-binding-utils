@@ -1,7 +1,13 @@
 <Project>
-  <!-- Extra compile-time references required by Additions.cs -->
+  <!-- Extra compile-time references required by Additions.cs and type resolution -->
   <ItemGroup>
-    <!-- IMapPluginProviderDelegate, ILocationComponentPlugin are in base-ndk27 -->
+    <!-- IMapPluginProviderDelegate, ILocationComponentPlugin, IMapCameraManagerDelegate etc. are in base-ndk27 -->
     <PackageReference Include="Com.Mapbox.Maps.BaseNdk27" Version="11.15.3" PrivateAssets="none" />
+    <!-- Camera types (CameraOptions, ScreenCoordinate, CameraState, Image, etc.) are in android-core-ndk27 -->
+    <PackageReference Include="Com.Mapbox.Maps.AndroidCoreNdk27" Version="11.15.3" PrivateAssets="none" />
+    <!-- Cancelable, LocationError, IGeofencingUtilsUserConsentResponseCallback are in common-ndk27 -->
+    <PackageReference Include="Com.Mapbox.Common.CommonNdk27" Version="24.15.3" PrivateAssets="none" />
+    <!-- Point, IGeometry (com.mapbox.geojson) are in mapbox-sdk-geojson -->
+    <PackageReference Include="Com.Mapbox.Mapboxsdk.MapboxSdkGeojson" Version="7.5.0" PrivateAssets="none" />
   </ItemGroup>
 </Project>

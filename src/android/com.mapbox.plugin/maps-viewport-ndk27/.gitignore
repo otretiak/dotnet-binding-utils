@@ -2,7 +2,6 @@
 binding/*
 !binding/Additions
 !binding/Transforms
-!binding/Extra.props
 
 # But not these files
 binding/Additions/*
