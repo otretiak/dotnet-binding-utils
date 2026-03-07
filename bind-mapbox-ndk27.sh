@@ -7,7 +7,7 @@ set -e
 # Usage: sh bind-mapbox-ndk27.sh
 
 ARTIFACTS=(
-  "com.mapbox.common:common-ndk27:24.15.2"
+  "com.mapbox.common:common-ndk27:24.15.3"
   "com.mapbox.maps:base-ndk27:11.15.3"
   "com.mapbox.maps:android-core-ndk27:11.15.3"
   "com.mapbox.extension:maps-style-ndk27:11.15.3"
